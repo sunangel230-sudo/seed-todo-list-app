@@ -1,40 +1,23 @@
 {
   "name": "todo-app",
-
   "private": true,
-
   "version": "1.0.0",
-
   "type": "module",
-
   "scripts": {
-
     "dev": "vite",
-
     "build": "vite build",
-
-    "preview": "vite preview"
-
+    "preview": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy"
   },
-
-
   "dependencies": {
-
     "@supabase/supabase-js": "^2.49.1",
-
     "vue": "^3.5.13",
-
     "vue-router": "^4.5.0"
-
   },
-
-
   "devDependencies": {
-
+    "@cloudflare/vite-plugin": "^1.42.3",
     "@vitejs/plugin-vue": "^5.2.1",
-
-    "vite": "^6.0.5"
-
+    "vite": "^6.0.5",
+    "wrangler": "^4.105.0"
   }
-
 }
