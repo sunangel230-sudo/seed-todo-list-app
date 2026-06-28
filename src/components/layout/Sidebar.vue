@@ -1,108 +1,198 @@
 <template>
+  <aside class="sidebar">
 
+    <div class="profile">
 
-<aside class="sidebar">
+      <div class="avatar">
+        TD
+      </div>
 
 
-<nav>
+      <div
+        class="dashboard-title"
+        @click="$emit('update:modelValue','all')"
+      >
 
+        <h3>
+          Todo Dashboard
+        </h3>
 
-<button
+        <p>
+          Manage your tasks
+        </p>
 
-:class="{active:modelValue==='all'}"
+      </div>
 
-@click="$emit('update:modelValue','all')"
+    </div>
 
->
 
 
-All Tasks
+    <nav class="nav">
 
 
-<span>
+      <div class="section-title">
+        Tasks
+      </div>
 
-{{total}}
 
-</span>
+      <button
+        :class="['nav-item', { active: modelValue === 'all' }]"
+        @click="$emit('update:modelValue','all')"
+      >
 
+        <span>
+          📋 All Tasks
+        </span>
 
-</button>
+        <span class="count">
+          {{ total }}
+        </span>
 
+      </button>
 
 
 
-<button
 
-:class="{active:modelValue==='pending'}"
+      <button
+        :class="['nav-item', { active: modelValue === 'completed' }]"
+        @click="$emit('update:modelValue','completed')"
+      >
 
-@click="$emit('update:modelValue','pending')"
+        <span>
+          ✅ Completed
+        </span>
 
->
+        <span class="count">
+          {{ completed }}
+        </span>
 
+      </button>
 
-Pending
 
 
-<span>
 
-{{pending}}
+      <button
+        :class="['nav-item', { active: modelValue === 'pending' }]"
+        @click="$emit('update:modelValue','pending')"
+      >
 
-</span>
+        <span>
+          ⏳ Pending
+        </span>
 
+        <span class="count">
+          {{ pending }}
+        </span>
 
-</button>
+      </button>
 
 
 
 
+      <div class="divider"></div>
 
-<button
 
-:class="{active:modelValue==='completed'}"
 
-@click="$emit('update:modelValue','completed')"
+      <div class="section-title">
+        Planning
+      </div>
 
->
 
 
-Completed
+      <button
+        :class="['nav-item', { active:modelValue==='today' }]"
+        @click="$emit('update:modelValue','today')"
+      >
+        📅 Today
+      </button>
 
 
-<span>
 
-{{completed}}
+      <button
+        :class="['nav-item', { active:modelValue==='upcoming' }]"
+        @click="$emit('update:modelValue','upcoming')"
+      >
+        🚀 Upcoming
+      </button>
 
-</span>
 
 
-</button>
+      <button
+        :class="['nav-item', { active:modelValue==='important' }]"
+        @click="$emit('update:modelValue','important')"
+      >
+        ⭐ Important
+      </button>
 
 
-</nav>
 
 
+      <div class="divider"></div>
 
 
 
-<button
+      <div class="section-title">
+        Projects
+      </div>
 
-class="clear"
 
-@click="$emit('clear-completed')"
 
->
+      <button class="nav-item">
+        💼 Work
+      </button>
 
-Clear Completed
 
-</button>
+      <button class="nav-item">
+        🏠 Personal
+      </button>
 
 
+      <button class="nav-item">
+        🎯 Goals
+      </button>
 
-</aside>
 
 
+
+      <div class="divider"></div>
+
+
+
+      <div class="section-title">
+        System
+      </div>
+
+
+
+      <button class="nav-item">
+        ⚙️ Settings
+      </button>
+
+
+      <button class="nav-item">
+        ❓ Help
+      </button>
+
+
+
+    </nav>
+
+
+
+
+    <button
+      class="clear-btn"
+      @click="$emit('clear-completed')"
+    >
+
+      🗑 Clear Completed
+
+    </button>
+
+
+
+  </aside>
 </template>
-
 
 
 
@@ -112,18 +202,28 @@ Clear Completed
 
 defineProps({
 
-
-modelValue:String,
-
-
-total:Number,
-
-
-completed:Number,
+  modelValue:{
+    type:String,
+    default:'all'
+  },
 
 
-pending:Number
+  total:{
+    type:Number,
+    default:0
+  },
 
+
+  completed:{
+    type:Number,
+    default:0
+  },
+
+
+  pending:{
+    type:Number,
+    default:0
+  }
 
 })
 
@@ -131,9 +231,9 @@ pending:Number
 
 defineEmits([
 
-'update:modelValue',
+  'update:modelValue',
 
-'clear-completed'
+  'clear-completed'
 
 ])
 
@@ -143,12 +243,10 @@ defineEmits([
 
 
 
-
 <style scoped>
 
 
 .sidebar{
-
 
 background:white;
 
@@ -162,13 +260,89 @@ flex-direction:column;
 
 justify-content:space-between;
 
+height:100vh;
 
 }
 
 
 
-nav{
+.profile{
 
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+margin-bottom:20px;
+
+}
+
+
+
+.avatar{
+
+width:45px;
+
+height:45px;
+
+border-radius:50%;
+
+background:#2563eb;
+
+color:white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-weight:bold;
+
+font-size:18px;
+
+}
+
+
+
+.dashboard-title{
+
+cursor:pointer;
+
+}
+
+
+
+.dashboard-title h3{
+
+margin:0;
+
+color:#4b5563;
+
+}
+
+
+
+.dashboard-title p{
+
+margin:4px 0 0;
+
+color:#6b7280;
+
+}
+
+
+
+.dashboard-title:hover h3{
+
+color:#6d4df8;
+
+}
+
+
+
+.nav{
 
 display:flex;
 
@@ -176,14 +350,23 @@ flex-direction:column;
 
 gap:10px;
 
+}
+
+
+
+.section-title{
+
+font-size:12px;
+
+color:#9ca3af;
+
+margin-top:10px;
 
 }
 
 
 
-
-button{
-
+.nav-item{
 
 border:0;
 
@@ -199,30 +382,67 @@ justify-content:space-between;
 
 cursor:pointer;
 
+}
+
+
+
+.nav-item:hover{
+
+background:#f7f5ff;
 
 }
 
 
 
-button.active{
-
+.nav-item.active{
 
 background:#f1edff;
 
 color:#6d4df8;
 
+}
+
+
+
+.count{
+
+background:#eee;
+
+padding:3px 8px;
+
+border-radius:10px;
+
+font-size:12px;
 
 }
 
 
 
-.clear{
+.divider{
 
+height:1px;
+
+background:#e8eaf2;
+
+margin:10px 0;
+
+}
+
+
+
+.clear-btn{
+
+border:0;
+
+background:#fff0f0;
 
 color:#e15555;
 
-justify-content:flex-start;
+padding:12px;
 
+border-radius:12px;
+
+cursor:pointer;
 
 }
 
